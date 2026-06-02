@@ -13,297 +13,222 @@
  
 
 <style>
-
+ 
+/* =========================
+   BASE CANVAS (FIGMA STYLE)
+========================= */
+ 
 *{
-
-    box-sizing:border-box;
-
+    box-sizing:border-box;
 }
-
- 
-
+ 
 body{
-
-    font-family:Arial, sans-serif;
-
-    background:#f4f4f4;
-
-    margin:0;
-
-    padding:20px;
-
-    color:#333;
-
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background:#e9ecf1; /* Figma-like workspace gray */
+    color:#111;
 }
-
- 
-
+ 
+/* MAIN APP CANVAS */
 .container{
-
-    max-width:1100px;
-
-    margin:auto;
-
-    background:#fff;
-
-    padding:30px;
-
-    border-radius:12px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-
+    max-width:1200px;
+    margin:40px auto;
+    padding:0;
 }
-
- 
-
-h1,h2,h3{
-
-    margin-top:0;
-
+ 
+/* APP FRAME */
+.app{
+    background:#f6f7fb;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.12);
+    overflow:hidden;
 }
-
- 
-
-.center{
-
-    text-align:center;
-
+ 
+/* =========================
+   TOP BAR (FIGMA TOOLBAR)
+========================= */
+ 
+.toolbar{
+    background:white;
+    padding:14px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #e5e7eb;
 }
-
- 
-
-button{
-
-    background:#2563eb;
-
-    color:white;
-
-    border:none;
-
-    padding:12px 24px;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    font-size:16px;
-
+ 
+.brand{
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:0.5px;
 }
-
- 
-
-button:hover{
-
-    background:#1d4ed8;
-
+ 
+.mode{
+    font-size:12px;
+    color:#6b7280;
 }
-
- 
-
-#game,
-
-#results{
-
-    display:none;
-
+ 
+/* =========================
+   WORKSPACE
+========================= */
+ 
+.workspace{
+    padding:30px;
 }
-
- 
-
-.progress{
-
-    font-size:14px;
-
-    color:#666;
-
-    margin-bottom:10px;
-
+ 
+/* HEADER PANEL */
+.panel{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
 }
-
- 
-
-.brief-box{
-
-    background:#f8fafc;
-
-    border-left:4px solid #2563eb;
-
-    padding:15px;
-
-    margin:20px 0;
-
-    border-radius:6px;
-
+ 
+/* TYPOGRAPHY */
+h1{
+    font-size:20px;
+    margin:0;
 }
-
- 
-
+ 
+h2{
+    font-size:18px;
+    margin:10px 0;
+}
+ 
+p{
+    color:#4b5563;
+    line-height:1.5;
+    font-size:14px;
+}
+ 
+/* =========================
+   GRID (DESIGN CARDS)
+========================= */
+ 
 .grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-    gap:20px;
-
-    margin-top:20px;
-
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
 }
-
- 
-
+ 
+/* IMAGE CARDS (FIGMA LAYER STYLE) */
 .card{
-
-    position:relative;
-
-    border:3px solid #ddd;
-
-    border-radius:10px;
-
-    overflow:hidden;
-
-    cursor:pointer;
-
-    transition:0.2s;
-
-    background:white;
-
+    position:relative;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    background:white;
+    border:1px solid #e5e7eb;
+    transition:0.2s ease;
 }
-
- 
-
+ 
 .card:hover{
-
-    transform:scale(1.02);
-
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
 }
-
- 
-
+ 
+/* SELECTED STATE */
+.card.selected{
+    outline:2px solid #4f46e5;
+}
+ 
+/* IMAGE */
 .card img{
-
-    width:100%;
-
-    height:260px;
-
-    object-fit:cover;
-
-    display:block;
-
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    display:block;
 }
-
- 
-
+ 
+/* LABEL (A/B/C/D) */
 .label{
-
-    position:absolute;
-
-    top:10px;
-
-    left:10px;
-
-    width:40px;
-
-    height:40px;
-
-    border-radius:50%;
-
-    background:white;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-weight:bold;
-
-    box-shadow:0 2px 6px rgba(0,0,0,0.25);
-
-    z-index:2;
-
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:white;
+    border:1px solid #e5e7eb;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:600;
 }
-
- 
-
+ 
+/* =========================
+   BUTTONS (SOFT UI STYLE)
+========================= */
+ 
+button{
+    background:#111827;
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:10px;
+    font-size:13px;
+    cursor:pointer;
+    transition:0.2s;
+}
+ 
+button:hover{
+    background:#000;
+    transform:translateY(-1px);
+}
+ 
+/* secondary buttons */
+.secondary{
+    background:#fff;
+    color:#111;
+    border:1px solid #e5e7eb;
+}
+ 
+/* =========================
+   FEEDBACK PANEL
+========================= */
+ 
 .feedback{
-
-    margin-top:25px;
-
-    padding:20px;
-
-    border-radius:10px;
-
-    display:none;
-
+    margin-top:16px;
+    padding:14px;
+    border-radius:12px;
+    display:none;
+    font-size:14px;
 }
-
- 
-
+ 
 .correct{
-
-    background:#dcfce7;
-
-    border:1px solid #22c55e;
-
+    background:#ecfdf5;
+    border:1px solid #10b981;
 }
-
- 
-
+ 
 .incorrect{
-
-    background:#fee2e2;
-
-    border:1px solid #ef4444;
-
+    background:#fef2f2;
+    border:1px solid #ef4444;
 }
-
- 
-
-.answer-review{
-
-    margin-top:15px;
-
+ 
+/* =========================
+   UI STATES
+========================= */
+ 
+.hidden{
+    display:none !important;
 }
-
- 
-
-.answer-review ul{
-
-    margin:10px 0 0 20px;
-
+ 
+.footer{
+    margin-top:20px;
+    display:flex;
+    justify-content:flex-end;
 }
-
- 
-
-.correct-answer{
-
-    font-weight:bold;
-
-    color:#15803d;
-
+ 
+.progress{
+    font-size:12px;
+    color:#6b7280;
 }
-
- 
-
-#nextBtn{
-
-    display:none;
-
-    margin-top:20px;
-
+ 
+/* subtle divider like Figma panels */
+.divider{
+    height:1px;
+    background:#e5e7eb;
+    margin:12px 0;
 }
-
- 
-
-.score-badge{
-
-    font-size:48px;
-
-    margin:20px 0;
-
-}
-
+ 
 </style>
 
 </head>
