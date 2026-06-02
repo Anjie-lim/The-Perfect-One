@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
+ 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>The Perfect Shot</title>
-
- 
-
+ 
 <style>
  
 /* =========================
-   BASE CANVAS (FIGMA STYLE)
+BASE
 ========================= */
  
 *{
@@ -25,42 +19,41 @@
 body{
     margin:0;
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    background:#e9ecf1; /* Figma-like workspace gray */
+    background:#e9ecf1;
     color:#111;
 }
  
-/* MAIN APP CANVAS */
+/* CENTER PAGE */
 .container{
-    max-width:1200px;
-    margin:40px auto;
-    padding:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
 }
  
-/* APP FRAME */
+/* APP CARD */
 .app{
+    width:100%;
+    max-width:1100px;
     background:#f6f7fb;
-    border-radius:16px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.12);
+    border-radius:18px;
+    box-shadow:0 25px 70px rgba(0,0,0,0.18);
     overflow:hidden;
 }
  
-/* =========================
-   TOP BAR (FIGMA TOOLBAR)
-========================= */
- 
+/* TOP BAR */
 .toolbar{
     background:white;
     padding:14px 20px;
     display:flex;
     justify-content:space-between;
-    align-items:center;
     border-bottom:1px solid #e5e7eb;
 }
  
 .brand{
     font-weight:700;
     font-size:14px;
-    letter-spacing:0.5px;
 }
  
 .mode{
@@ -68,51 +61,44 @@ body{
     color:#6b7280;
 }
  
-/* =========================
-   WORKSPACE
-========================= */
- 
+/* WORKSPACE */
 .workspace{
     padding:30px;
 }
  
-/* HEADER PANEL */
+/* PANELS */
 .panel{
     background:white;
     border:1px solid #e5e7eb;
     border-radius:12px;
-    padding:18px;
-    margin-bottom:20px;
+    padding:16px;
+    margin-bottom:16px;
 }
  
-/* TYPOGRAPHY */
+/* TYPO */
 h1{
-    font-size:20px;
-    margin:0;
+    font-size:22px;
+    margin:0 0 10px 0;
 }
  
 h2{
-    font-size:18px;
     margin:10px 0;
 }
  
 p{
+    font-size:14px;
     color:#4b5563;
     line-height:1.5;
-    font-size:14px;
 }
  
-/* =========================
-   GRID (DESIGN CARDS)
-========================= */
- 
+/* GRID */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:16px;
 }
  
-/* IMAGE CARDS (FIGMA LAYER STYLE) */
+/* CARD */
 .card{
     position:relative;
     border-radius:12px;
@@ -120,29 +106,29 @@ p{
     cursor:pointer;
     background:white;
     border:1px solid #e5e7eb;
-    transition:0.2s ease;
+    transition:0.2s;
 }
  
 .card:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
     box-shadow:0 10px 25px rgba(0,0,0,0.12);
 }
  
-/* SELECTED STATE */
 .card.selected{
     outline:2px solid #4f46e5;
 }
  
-/* IMAGE */
+/* IMAGE (NO CROPPING ISSUE) */
 .card img{
     width:100%;
     height:240px;
     object-fit:contain;
-    padding: 10px;
+    padding:10px;
+    background:#f3f4f6;
     display:block;
 }
  
-/* LABEL (A/B/C/D) */
+/* LABEL */
 .label{
     position:absolute;
     top:10px;
@@ -155,37 +141,22 @@ p{
     font-weight:600;
 }
  
-/* =========================
-   BUTTONS (SOFT UI STYLE)
-========================= */
- 
+/* BUTTONS */
 button{
     background:#111827;
     color:white;
     border:none;
     padding:10px 14px;
     border-radius:10px;
-    font-size:13px;
     cursor:pointer;
-    transition:0.2s;
+    font-size:13px;
 }
  
 button:hover{
     background:#000;
-    transform:translateY(-1px);
 }
  
-/* secondary buttons */
-.secondary{
-    background:#fff;
-    color:#111;
-    border:1px solid #e5e7eb;
-}
- 
-/* =========================
-   FEEDBACK PANEL
-========================= */
- 
+/* FEEDBACK */
 .feedback{
     margin-top:16px;
     padding:14px;
@@ -204,12 +175,19 @@ button:hover{
     border:1px solid #ef4444;
 }
  
-/* =========================
-   UI STATES
-========================= */
- 
+/* UTIL */
 .hidden{
     display:none !important;
+}
+ 
+.center{
+    text-align:center;
+}
+ 
+.progress{
+    font-size:12px;
+    color:#6b7280;
+    margin-bottom:10px;
 }
  
 .footer{
@@ -218,794 +196,266 @@ button:hover{
     justify-content:flex-end;
 }
  
-.progress{
-    font-size:12px;
-    color:#6b7280;
-}
- 
-/* subtle divider like Figma panels */
-.divider{
-    height:1px;
-    background:#e5e7eb;
-    margin:12px 0;
+.score-badge{
+    font-size:48px;
+    margin:20px 0;
 }
  
 </style>
-
+ 
 </head>
-
- 
-
+ 
 <body>
-
- 
-
+ 
 <div class="container">
-
- 
-
-<!-- START SCREEN -->
-
- 
-
+ 
+<div class="app">
+ 
+<!-- TOOLBAR -->
+<div class="toolbar">
+    <div class="brand">THE PERFECT SHOT</div>
+    <div class="mode">UX SIMULATION GAME</div>
+</div>
+ 
+<div class="workspace">
+ 
+<!-- START -->
 <div id="startScreen">
-
- 
-
-    <h1 class="center">📸 The Perfect Shot</h1>
-
- 
-
-    <p>
-
-        Welcome to <strong>The Perfect Shot!</strong>
-
-    </p>
-
- 
-
-    <p>
-
-        In this game, you are the Creative Director.
-
-    </p>
-
- 
-
-    <p>
-
-        Your job is to select the image that best fulfills a creative brief.
-
-        You'll review image options and choose the strongest visual solution.
-
-    </p>
-
- 
-
-    <p>
-
-        Think like a designer, marketer, editor, or art director.
-
-    </p>
-
- 
-
-    <div class="center">
-
-        <button onclick="startGame()">Start Game</button>
-
-    </div>
-
- 
-
+ 
+    <div class="panel center">
+ 
+        <h1>📸 The Perfect Shot</h1>
+ 
+        <p>
+            You are the Creative Director. Choose the strongest visual solution for each brief.
+        </p>
+ 
+        <button onclick="startGame()">Start Game</button>
+ 
+    </div>
+ 
 </div>
-
- 
-
+ 
 <!-- GAME -->
-
- 
-
-<div id="game">
-
- 
-
-    <div class="progress">
-
-        Round <span id="roundNumber"></span> of <span id="totalRounds"></span>
-
-    </div>
-
- 
-
-    <h2 id="category"></h2>
-
- 
-
-    <div class="brief-box">
-
- 
-
-        <h3>Creative Brief</h3>
-
- 
-
-        <p id="brief"></p>
-
- 
-
-    </div>
-
- 
-
-    <div id="options" class="grid"></div>
-
- 
-
-    <div id="feedback" class="feedback"></div>
-
- 
-
-    <div class="center">
-
-        <button id="nextBtn" onclick="nextRound()">Next Round</button>
-
-    </div>
-
- 
-
+<div id="game" class="hidden">
+ 
+    <div class="panel">
+ 
+        <div class="progress">
+            Round <span id="roundNumber"></span> of <span id="totalRounds"></span>
+        </div>
+ 
+        <h2 id="category"></h2>
+        <p id="brief"></p>
+ 
+    </div>
+ 
+    <div id="options" class="grid"></div>
+ 
+    <div id="feedback" class="feedback"></div>
+ 
+    <div class="footer">
+        <button id="nextBtn" onclick="nextRound()">Next →</button>
+    </div>
+ 
 </div>
-
- 
-
+ 
 <!-- RESULTS -->
-
- 
-
-<div id="results">
-
- 
-
-    <h1 class="center">Game Complete!</h1>
-
- 
-
-    <div class="center">
-
- 
-
-        <div class="score-badge">🏆</div>
-
- 
-
-        <h2 id="finalScore"></h2>
-
- 
-
-        <h3 id="rankTitle"></h3>
-
- 
-
-        <p id="rankMessage"></p>
-
- 
-
-        <button onclick="location.reload()">
-
-            Play Again
-
-        </button>
-
- 
-
-    </div>
-
- 
-
+<div id="results" class="hidden">
+ 
+    <div class="panel center">
+ 
+        <h1>Game Complete</h1>
+ 
+        <div class="score-badge">🏆</div>
+ 
+        <h2 id="finalScore"></h2>
+        <h3 id="rankTitle"></h3>
+        <p id="rankMessage"></p>
+ 
+        <button onclick="location.reload()">Play Again</button>
+ 
+    </div>
+ 
 </div>
-
- 
-
+ 
 </div>
-
- 
-
+</div>
+ 
+</div>
+ 
 <script>
-
- 
-
+ 
 const rounds = [
-
- 
-
 {
-
-    category:"People",
-
- 
-
-    brief:"We need an image for a company website. Select the strongest visual representation of an office worker.",
-
- 
-
-    correct:2,
-
- 
-
-    rationale:"Showing the subject's full, clear features creates a relatable and professional representation of an office worker.",
-
- 
-
-    options:[
-
-        "Images/r1_a.jpg",
-
-        "Images/r1_b.jpg",
-
-        "Images/r1_c.jpg",
-
-        "Images/r1_d.jpg"
-
-    ]
-
+category:"People",
+brief:"Select the strongest visual representation of an office worker.",
+correct:2,
+rationale:"Clear, full facial visibility creates a professional and relatable subject.",
+options:[
+"Images/r1_a.jpg",
+"Images/r1_b.jpg",
+"Images/r1_c.jpg",
+"Images/r1_d.jpg"
+]
 },
-
- 
-
 {
-
-    category:"Product",
-
- 
-
-    brief:"Choose the best image for a premium skincare website banner.",
-
- 
-
-    correct:2,
-
- 
-
-    rationale:"Premium products require flawless branding, excellent lighting, and centered framing.",
-
- 
-
-    options:[
-
-        "Images/r2_a.jpg",
-
-        "Images/r2_b.jpg",
-
-        "Images/r2_c.jpg",
-
-        "Images/r2_d.jpg"
-
-    ]
-
+category:"Product",
+brief:"Choose the best image for a premium skincare banner.",
+correct:2,
+rationale:"Premium branding requires clarity, lighting, and centered composition.",
+options:[
+"Images/r2_a.jpg",
+"Images/r2_b.jpg",
+"Images/r2_c.jpg",
+"Images/r2_d.jpg"
+]
 },
-
- 
-
 {
-
-    category:"Clothing",
-
- 
-
-    brief:"Select the strongest catalog image for a summer sundress.",
-
- 
-
-    correct:0,
-
- 
-
-    rationale:"Shoppers need to see fit, length, and fabric behavior before purchasing.",
-
- 
-
-    options:[
-
-        "Images/r3_a.jpg",
-
-        "Images/r3_b.jpg",
-
-        "Images/r3_c.jpg",
-
-        "Images/r3_d.jpg"
-
-    ]
-
+category:"Clothing",
+brief:"Select the strongest catalog image for a summer dress.",
+correct:0,
+rationale:"Full-body visibility is essential for fit and silhouette understanding.",
+options:[
+"Images/r3_a.jpg",
+"Images/r3_b.jpg",
+"Images/r3_c.jpg",
+"Images/r3_d.jpg"
+]
 },
-
- 
-
 {
-
-    category:"Location",
-
- 
-
-    brief:"Choose the image that best communicates a cozy and inviting cafe.",
-
- 
-
-    correct:2,
-
- 
-
-    rationale:"Warm lighting, comfortable seating, and a fresh beverage communicate comfort and atmosphere.",
-
- 
-
-    options:[
-
-        "Images/r4_a.jpg",
-
-        "Images/r4_b.jpg",
-
-        "Images/r4_c.jpg",
-
-        "Images/r4_d.jpg"
-
-    ]
-
+category:"Location",
+brief:"Choose the image that best communicates a cozy cafe.",
+correct:2,
+rationale:"Warm lighting and atmosphere communicate comfort effectively.",
+options:[
+"Images/r4_a.jpg",
+"Images/r4_b.jpg",
+"Images/r4_c.jpg",
+"Images/r4_d.jpg"
+]
 },
-
- 
-
 {
-
-    category:"Information",
-
- 
-
-    brief:"Choose the strongest visual representation of a futuristic street.",
-
- 
-
-    correct:2,
-
- 
-
-    rationale:"Neon lighting and digital signage immediately communicate a futuristic urban environment.",
-
- 
-
-    options:[
-
-        "Images/r5_a.jpg",
-
-        "Images/r5_b.jpg",
-
-        "Images/r5_c.jpg",
-
-        "Images/r5_d.jpg"
-
-    ]
-
+category:"Information",
+brief:"Choose the strongest futuristic street visual.",
+correct:2,
+rationale:"Neon + digital signage clearly communicates futuristic design.",
+options:[
+"Images/r5_a.jpg",
+"Images/r5_b.jpg",
+"Images/r5_c.jpg",
+"Images/r5_d.jpg"
+]
 }
-
- 
-
 ];
-
- 
-
+ 
 let currentRound = 0;
-
 let score = 0;
-
 let answered = false;
-
- 
-
 const letters = ["A","B","C","D"];
-
- 
-
+ 
 function startGame(){
-
- 
-
-    document.getElementById("startScreen").style.display = "none";
-
-    document.getElementById("game").style.display = "block";
-
- 
-
-    document.getElementById("totalRounds").textContent =
-
-    rounds.length;
-
- 
-
-    loadRound();
-
- 
-
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("game").classList.remove("hidden");
+    document.getElementById("totalRounds").textContent = rounds.length;
+    loadRound();
 }
-
- 
-
+ 
 function loadRound(){
-
- 
-
-    answered = false;
-
- 
-
-    const round = rounds[currentRound];
-
- 
-
-    document.getElementById("roundNumber").textContent =
-
-    currentRound + 1;
-
- 
-
-    document.getElementById("category").textContent =
-
-    round.category;
-
- 
-
-    document.getElementById("brief").textContent =
-
-    round.brief;
-
- 
-
-    document.getElementById("feedback").style.display =
-
-    "none";
-
- 
-
-    document.getElementById("nextBtn").style.display =
-
-    "none";
-
- 
-
-    const optionsDiv =
-
-    document.getElementById("options");
-
- 
-
-    optionsDiv.innerHTML = "";
-
- 
-
-    round.options.forEach((image,index)=>{
-
- 
-
-        const card =
-
-        document.createElement("div");
-
- 
-
-        card.className = "card";
-
- 
-
-        card.innerHTML = `
-
-            <div class="label">${letters[index]}</div>
-
- 
-
-            <img src="${image}"
-
-                 alt="Option ${letters[index]}"
-
-                 onerror="this.src='https://via.placeholder.com/600x400?text=Insert+Image+Here';">
-
-        `;
-
- 
-
-        card.onclick = () => chooseAnswer(index);
-
- 
-
-        optionsDiv.appendChild(card);
-
- 
-
-    });
-
- 
-
+ 
+    answered = false;
+ 
+    const r = rounds[currentRound];
+ 
+    document.getElementById("roundNumber").textContent = currentRound + 1;
+    document.getElementById("category").textContent = r.category;
+    document.getElementById("brief").textContent = r.brief;
+ 
+    document.getElementById("feedback").style.display = "none";
+    document.getElementById("nextBtn").style.display = "none";
+ 
+    const grid = document.getElementById("options");
+    grid.innerHTML = "";
+ 
+    r.options.forEach((img, i)=>{
+ 
+        const card = document.createElement("div");
+        card.className = "card";
+ 
+        card.innerHTML = `
+            <div class="label">${letters[i]}</div>
+            <img src="${img}" onerror="this.src='https://via.placeholder.com/600x400?text=Missing+Image'">
+        `;
+ 
+        card.onclick = ()=> choose(i);
+ 
+        grid.appendChild(card);
+    });
 }
-
- 
-
-function chooseAnswer(selected){
-
- 
-
-    if(answered) return;
-
- 
-
-    answered = true;
-
- 
-
-    const round = rounds[currentRound];
-
- 
-
-    const feedback =
-
-    document.getElementById("feedback");
-
- 
-
-    const correctLetter =
-
-    letters[round.correct];
-
- 
-
-    if(selected === round.correct){
-
- 
-
-        score++;
-
- 
-
-        feedback.className =
-
-        "feedback correct";
-
- 
-
-        feedback.innerHTML = `
-
-            <h3>✅ Correct!</h3>
-
- 
-
-            <p>${round.rationale}</p>
-
- 
-
-            <div class="answer-review">
-
-                <p class="correct-answer">
-
-                    Best Choice: Option ${correctLetter}
-
-                </p>
-
-            </div>
-
-        `;
-
- 
-
-    }
-
-    else{
-
- 
-
-        feedback.className =
-
-        "feedback incorrect";
-
- 
-
-        feedback.innerHTML = `
-
-            <h3>❌ Not Quite</h3>
-
- 
-
-            <p>${round.rationale}</p>
-
- 
-
-            <div class="answer-review">
-
-                <p class="correct-answer">
-
-                    Correct Answer: Option ${correctLetter}
-
-                </p>
-
-            </div>
-
-        `;
-
- 
-
-    }
-
- 
-
-    feedback.style.display = "block";
-
- 
-
-    document.getElementById("nextBtn")
-
-    .style.display = "inline-block";
-
- 
-
+ 
+function choose(i){
+ 
+    if(answered) return;
+    answered = true;
+ 
+    const r = rounds[currentRound];
+    const fb = document.getElementById("feedback");
+ 
+    if(i === r.correct){
+        score++;
+        fb.className = "feedback correct";
+        fb.innerHTML = `<b>Correct!</b><br>${r.rationale}`;
+    } else {
+        fb.className = "feedback incorrect";
+        fb.innerHTML = `<b>Not quite.</b><br>${r.rationale}`;
+    }
+ 
+    fb.style.display = "block";
+    document.getElementById("nextBtn").style.display = "inline-block";
 }
-
- 
-
+ 
 function nextRound(){
-
- 
-
-    currentRound++;
-
- 
-
-    if(currentRound >= rounds.length){
-
- 
-
-        showResults();
-
-        return;
-
- 
-
-    }
-
- 
-
-    loadRound();
-
- 
-
+ 
+    currentRound++;
+ 
+    if(currentRound >= rounds.length){
+        showResults();
+        return;
+    }
+ 
+    loadRound();
 }
-
- 
-
+ 
 function showResults(){
-
- 
-
-    document.getElementById("game").style.display =
-
-    "none";
-
- 
-
-    document.getElementById("results").style.display =
-
-    "block";
-
- 
-
-    document.getElementById("finalScore").textContent =
-
-    `Score: ${score} / ${rounds.length}`;
-
- 
-
-    let title = "";
-
-    let message = "";
-
- 
-
-    if(score === 5){
-
- 
-
-        title = "Master Creative Director";
-
- 
-
-        message =
-
-        "You consistently identified the strongest visual solution and demonstrated excellent creative judgment.";
-
- 
-
-    }
-
-    else if(score === 4){
-
- 
-
-        title = "Senior Art Director";
-
- 
-
-        message =
-
-        "You have a strong eye for composition, communication, and audience fit.";
-
- 
-
-    }
-
-    else if(score === 3){
-
- 
-
-        title = "Creative Strategist";
-
- 
-
-        message =
-
-        "You understand visual communication and can usually identify effective imagery.";
-
- 
-
-    }
-
-    else if(score === 2){
-
- 
-
-        title = "Junior Designer";
-
- 
-
-        message =
-
-        "You're developing a good visual instinct. Keep practicing.";
-
- 
-
-    }
-
-    else{
-
- 
-
-        title = "Intern With A Camera";
-
- 
-
-        message =
-
-        "Every great creative starts somewhere. Review the rationales and try again.";
-
- 
-
-    }
-
- 
-
-    document.getElementById("rankTitle").textContent =
-
-    title;
-
- 
-
-    document.getElementById("rankMessage").textContent =
-
-    message;
-
- 
-
+ 
+    document.getElementById("game").classList.add("hidden");
+    document.getElementById("results").classList.remove("hidden");
+ 
+    document.getElementById("finalScore").textContent =
+        `Score: ${score} / ${rounds.length}`;
+ 
+    let title = "";
+    let msg = "";
+ 
+    if(score >= 5){
+        title = "Master Creative Director";
+        msg = "Exceptional visual judgment.";
+    } else if(score >= 4){
+        title = "Senior Art Director";
+        msg = "Strong design instincts.";
+    } else if(score >= 3){
+        title = "Creative Strategist";
+        msg = "Good visual reasoning.";
+    } else {
+        title = "Junior Designer";
+        msg = "Keep practicing.";
+    }
+ 
+    document.getElementById("rankTitle").textContent = title;
+    document.getElementById("rankMessage").textContent = msg;
 }
-
- 
-
+ 
 </script>
-
- 
-
+ 
 </body>
-
 </html>
