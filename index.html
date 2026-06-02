@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Perfect Shot</title>
+
+ 
+
+<style>
+
+*{
+
+    box-sizing:border-box;
+
+}
+
+ 
+
+body{
+
+    font-family:Arial, sans-serif;
+
+    background:#f4f4f4;
+
+    margin:0;
+
+    padding:20px;
+
+    color:#333;
+
+}
+
+ 
+
+.container{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+}
+
+ 
+
+h1,h2,h3{
+
+    margin-top:0;
+
+}
+
+ 
+
+.center{
+
+    text-align:center;
+
+}
+
+ 
+
+button{
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 24px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+ 
+
+button:hover{
+
+    background:#1d4ed8;
+
+}
+
+ 
+
+#game,
+
+#results{
+
+    display:none;
+
+}
+
+ 
+
+.progress{
+
+    font-size:14px;
+
+    color:#666;
+
+    margin-bottom:10px;
+
+}
+
+ 
+
+.brief-box{
+
+    background:#f8fafc;
+
+    border-left:4px solid #2563eb;
+
+    padding:15px;
+
+    margin:20px 0;
+
+    border-radius:6px;
+
+}
+
+ 
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-top:20px;
+
+}
+
+ 
+
+.card{
+
+    position:relative;
+
+    border:3px solid #ddd;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+    background:white;
+
+}
+
+ 
+
+.card:hover{
+
+    transform:scale(1.02);
+
+}
+
+ 
+
+.card img{
+
+    width:100%;
+
+    height:260px;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+ 
+
+.label{
+
+    position:absolute;
+
+    top:10px;
+
+    left:10px;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:bold;
+
+    box-shadow:0 2px 6px rgba(0,0,0,0.25);
+
+    z-index:2;
+
+}
+
+ 
+
+.feedback{
+
+    margin-top:25px;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    display:none;
+
+}
+
+ 
+
+.correct{
+
+    background:#dcfce7;
+
+    border:1px solid #22c55e;
+
+}
+
+ 
+
+.incorrect{
+
+    background:#fee2e2;
+
+    border:1px solid #ef4444;
+
+}
+
+ 
+
+.answer-review{
+
+    margin-top:15px;
+
+}
+
+ 
+
+.answer-review ul{
+
+    margin:10px 0 0 20px;
+
+}
+
+ 
+
+.correct-answer{
+
+    font-weight:bold;
+
+    color:#15803d;
+
+}
+
+ 
+
+#nextBtn{
+
+    display:none;
+
+    margin-top:20px;
+
+}
+
+ 
+
+.score-badge{
+
+    font-size:48px;
+
+    margin:20px 0;
+
+}
+
+</style>
+
+</head>
+
+ 
+
+<body>
+
+ 
+
+<div class="container">
+
+ 
+
+<!-- START SCREEN -->
+
+ 
+
+<div id="startScreen">
+
+ 
+
+    <h1 class="center">📸 The Perfect Shot</h1>
+
+ 
+
+    <p>
+
+        Welcome to <strong>The Perfect Shot!</strong>
+
+    </p>
+
+ 
+
+    <p>
+
+        In this game, you are the Creative Director.
+
+    </p>
+
+ 
+
+    <p>
+
+        Your job is to select the image that best fulfills a creative brief.
+
+        You'll review image options and choose the strongest visual solution.
+
+    </p>
+
+ 
+
+    <p>
+
+        Think like a designer, marketer, editor, or art director.
+
+    </p>
+
+ 
+
+    <div class="center">
+
+        <button onclick="startGame()">Start Game</button>
+
+    </div>
+
+ 
+
+</div>
+
+ 
+
+<!-- GAME -->
+
+ 
+
+<div id="game">
+
+ 
+
+    <div class="progress">
+
+        Round <span id="roundNumber"></span> of <span id="totalRounds"></span>
+
+    </div>
+
+ 
+
+    <h2 id="category"></h2>
+
+ 
+
+    <div class="brief-box">
+
+ 
+
+        <h3>Creative Brief</h3>
+
+ 
+
+        <p id="brief"></p>
+
+ 
+
+    </div>
+
+ 
+
+    <div id="options" class="grid"></div>
+
+ 
+
+    <div id="feedback" class="feedback"></div>
+
+ 
+
+    <div class="center">
+
+        <button id="nextBtn" onclick="nextRound()">Next Round</button>
+
+    </div>
+
+ 
+
+</div>
+
+ 
+
+<!-- RESULTS -->
+
+ 
+
+<div id="results">
+
+ 
+
+    <h1 class="center">Game Complete!</h1>
+
+ 
+
+    <div class="center">
+
+ 
+
+        <div class="score-badge">🏆</div>
+
+ 
+
+        <h2 id="finalScore"></h2>
+
+ 
+
+        <h3 id="rankTitle"></h3>
+
+ 
+
+        <p id="rankMessage"></p>
+
+ 
+
+        <button onclick="location.reload()">
+
+            Play Again
+
+        </button>
+
+ 
+
+    </div>
+
+ 
+
+</div>
+
+ 
+
+</div>
+
+ 
+
+<script>
+
+ 
+
+const rounds = [
+
+ 
+
+{
+
+    category:"People",
+
+ 
+
+    brief:"We need an image for a company website. Select the strongest visual representation of an office worker.",
+
+ 
+
+    correct:2,
+
+ 
+
+    rationale:"Showing the subject's full, clear features creates a relatable and professional representation of an office worker.",
+
+ 
+
+    options:[
+
+        "images/r1_a.jpg",
+
+        "images/r1_b.jpg",
+
+        "images/r1_c.jpg",
+
+        "images/r1_d.jpg"
+
+    ]
+
+},
+
+ 
+
+{
+
+    category:"Product",
+
+ 
+
+    brief:"Choose the best image for a premium skincare website banner.",
+
+ 
+
+    correct:2,
+
+ 
+
+    rationale:"Premium products require flawless branding, excellent lighting, and centered framing.",
+
+ 
+
+    options:[
+
+        "images/r2_a.jpg",
+
+        "images/r2_b.jpg",
+
+        "images/r2_c.jpg",
+
+        "images/r2_d.jpg"
+
+    ]
+
+},
+
+ 
+
+{
+
+    category:"Clothing",
+
+ 
+
+    brief:"Select the strongest catalog image for a summer sundress.",
+
+ 
+
+    correct:0,
+
+ 
+
+    rationale:"Shoppers need to see fit, length, and fabric behavior before purchasing.",
+
+ 
+
+    options:[
+
+        "images/r3_a.jpg",
+
+        "images/r3_b.jpg",
+
+        "images/r3_c.jpg",
+
+        "images/r3_d.jpg"
+
+    ]
+
+},
+
+ 
+
+{
+
+    category:"Location",
+
+ 
+
+    brief:"Choose the image that best communicates a cozy and inviting cafe.",
+
+ 
+
+    correct:2,
+
+ 
+
+    rationale:"Warm lighting, comfortable seating, and a fresh beverage communicate comfort and atmosphere.",
+
+ 
+
+    options:[
+
+        "images/r4_a.jpg",
+
+        "images/r4_b.jpg",
+
+        "images/r4_c.jpg",
+
+        "images/r4_d.jpg"
+
+    ]
+
+},
+
+ 
+
+{
+
+    category:"Information",
+
+ 
+
+    brief:"Choose the strongest visual representation of a futuristic street.",
+
+ 
+
+    correct:2,
+
+ 
+
+    rationale:"Neon lighting and digital signage immediately communicate a futuristic urban environment.",
+
+ 
+
+    options:[
+
+        "images/r5_a.jpg",
+
+        "images/r5_b.jpg",
+
+        "images/r5_c.jpg",
+
+        "images/r5_d.jpg"
+
+    ]
+
+}
+
+ 
+
+];
+
+ 
+
+let currentRound = 0;
+
+let score = 0;
+
+let answered = false;
+
+ 
+
+const letters = ["A","B","C","D"];
+
+ 
+
+function startGame(){
+
+ 
+
+    document.getElementById("startScreen").style.display = "none";
+
+    document.getElementById("game").style.display = "block";
+
+ 
+
+    document.getElementById("totalRounds").textContent =
+
+    rounds.length;
+
+ 
+
+    loadRound();
+
+ 
+
+}
+
+ 
+
+function loadRound(){
+
+ 
+
+    answered = false;
+
+ 
+
+    const round = rounds[currentRound];
+
+ 
+
+    document.getElementById("roundNumber").textContent =
+
+    currentRound + 1;
+
+ 
+
+    document.getElementById("category").textContent =
+
+    round.category;
+
+ 
+
+    document.getElementById("brief").textContent =
+
+    round.brief;
+
+ 
+
+    document.getElementById("feedback").style.display =
+
+    "none";
+
+ 
+
+    document.getElementById("nextBtn").style.display =
+
+    "none";
+
+ 
+
+    const optionsDiv =
+
+    document.getElementById("options");
+
+ 
+
+    optionsDiv.innerHTML = "";
+
+ 
+
+    round.options.forEach((image,index)=>{
+
+ 
+
+        const card =
+
+        document.createElement("div");
+
+ 
+
+        card.className = "card";
+
+ 
+
+        card.innerHTML = `
+
+            <div class="label">${letters[index]}</div>
+
+ 
+
+            <img src="${image}"
+
+                 alt="Option ${letters[index]}"
+
+                 onerror="this.src='https://via.placeholder.com/600x400?text=Insert+Image+Here';">
+
+        `;
+
+ 
+
+        card.onclick = () => chooseAnswer(index);
+
+ 
+
+        optionsDiv.appendChild(card);
+
+ 
+
+    });
+
+ 
+
+}
+
+ 
+
+function chooseAnswer(selected){
+
+ 
+
+    if(answered) return;
+
+ 
+
+    answered = true;
+
+ 
+
+    const round = rounds[currentRound];
+
+ 
+
+    const feedback =
+
+    document.getElementById("feedback");
+
+ 
+
+    const correctLetter =
+
+    letters[round.correct];
+
+ 
+
+    if(selected === round.correct){
+
+ 
+
+        score++;
+
+ 
+
+        feedback.className =
+
+        "feedback correct";
+
+ 
+
+        feedback.innerHTML = `
+
+            <h3>✅ Correct!</h3>
+
+ 
+
+            <p>${round.rationale}</p>
+
+ 
+
+            <div class="answer-review">
+
+                <p class="correct-answer">
+
+                    Best Choice: Option ${correctLetter}
+
+                </p>
+
+            </div>
+
+        `;
+
+ 
+
+    }
+
+    else{
+
+ 
+
+        feedback.className =
+
+        "feedback incorrect";
+
+ 
+
+        feedback.innerHTML = `
+
+            <h3>❌ Not Quite</h3>
+
+ 
+
+            <p>${round.rationale}</p>
+
+ 
+
+            <div class="answer-review">
+
+                <p class="correct-answer">
+
+                    Correct Answer: Option ${correctLetter}
+
+                </p>
+
+            </div>
+
+        `;
+
+ 
+
+    }
+
+ 
+
+    feedback.style.display = "block";
+
+ 
+
+    document.getElementById("nextBtn")
+
+    .style.display = "inline-block";
+
+ 
+
+}
+
+ 
+
+function nextRound(){
+
+ 
+
+    currentRound++;
+
+ 
+
+    if(currentRound >= rounds.length){
+
+ 
+
+        showResults();
+
+        return;
+
+ 
+
+    }
+
+ 
+
+    loadRound();
+
+ 
+
+}
+
+ 
+
+function showResults(){
+
+ 
+
+    document.getElementById("game").style.display =
+
+    "none";
+
+ 
+
+    document.getElementById("results").style.display =
+
+    "block";
+
+ 
+
+    document.getElementById("finalScore").textContent =
+
+    `Score: ${score} / ${rounds.length}`;
+
+ 
+
+    let title = "";
+
+    let message = "";
+
+ 
+
+    if(score === 5){
+
+ 
+
+        title = "Master Creative Director";
+
+ 
+
+        message =
+
+        "You consistently identified the strongest visual solution and demonstrated excellent creative judgment.";
+
+ 
+
+    }
+
+    else if(score === 4){
+
+ 
+
+        title = "Senior Art Director";
+
+ 
+
+        message =
+
+        "You have a strong eye for composition, communication, and audience fit.";
+
+ 
+
+    }
+
+    else if(score === 3){
+
+ 
+
+        title = "Creative Strategist";
+
+ 
+
+        message =
+
+        "You understand visual communication and can usually identify effective imagery.";
+
+ 
+
+    }
+
+    else if(score === 2){
+
+ 
+
+        title = "Junior Designer";
+
+ 
+
+        message =
+
+        "You're developing a good visual instinct. Keep practicing.";
+
+ 
+
+    }
+
+    else{
+
+ 
+
+        title = "Intern With A Camera";
+
+ 
+
+        message =
+
+        "Every great creative starts somewhere. Review the rationales and try again.";
+
+ 
+
+    }
+
+ 
+
+    document.getElementById("rankTitle").textContent =
+
+    title;
+
+ 
+
+    document.getElementById("rankMessage").textContent =
+
+    message;
+
+ 
+
+}
+
+ 
+
+</script>
+
+ 
+
+</body>
+
+</html>
